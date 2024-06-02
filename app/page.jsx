@@ -1,9 +1,15 @@
-const page = () => {
-  return (
-    <div>
-      <h1>Home Page!</h1>
-    </div>
-  )
-}
+import Hero from '@/components/Hero';
+import InfoBoxes from '@/components/InfoBoxes';
+import HomeProperties from '@/components/HomeProperties';
 
-export default page
+const HomePage = () => {
+  return (
+    <>
+      <Hero />
+      <InfoBoxes />
+      <HomeProperties />
+    </>
+  );
+};
+
+export default HomePage;
