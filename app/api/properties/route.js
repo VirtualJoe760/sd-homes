@@ -92,14 +92,20 @@ export const POST = async (request) => {
       // console.log('Image base64:', imageBase64);
 
       //make request to upload to cloudinary
-      const result = await cloudinary.uploader.upload(
-        `data:image/png;base64,${imageBase64}`,
-        {
-          folder: 'sdhomes',
-        },
-      );
+      let result;
+      try {
+        result = await cloudinary.uploader.upload(
+          `data:image/png;base64,${imageBase64}`,
+          {
+            folder: 'sdhomes',
+          },
+        );
+      } catch (error) {
+        console.log(error)
+      }
+ 
       
-      
+      console.log(result);
       imageUploadPromises.push(result.secure_url);
       
       //wait for all images to upload
@@ -110,6 +116,7 @@ export const POST = async (request) => {
     }
 
     const newProperty = new Property(propertyData);
+    console.log(newProperty);
     await newProperty.save();
 
     return Response.redirect(`${process.env.NEXTAUTH_URL}/properties/${newProperty._id}`);
